@@ -3,10 +3,10 @@ module imageRead();
 	integer temp_BMP   [0 : WIDTH*HEIGHT*3 - 1];  
 	parameter sizeOfWidth = 8;   // data width
 	parameter sizeOfLengthReal = 3*Width*Height;   // image data : 
-	integer temp_BMP   [0 : WIDTH*HEIGHT*3 - 1]; 
-	integer org_R  [0 : WIDTH*HEIGHT - 1];  // temporary storage for R component
-	integer org_G  [0 : WIDTH*HEIGHT - 1]; // temporary storage for G component
-	integer org_B  [0 : WIDTH*HEIGHT - 1];  // temporary storage for B component
+	double temp_BMP   [0 : WIDTH*HEIGHT*3 - 1]; 
+	double org_R  [0 : WIDTH*HEIGHT - 1];  // temporary storage for R component
+	double org_G  [0 : WIDTH*HEIGHT - 1]; // temporary storage for G component
+	double org_B  [0 : WIDTH*HEIGHT - 1];  // temporary storage for B component
 	initial begin
   $readmemh("path/to/bmp",total_memory,0,sizeOfLengthReal-1); // read file from INFILE
 	end
