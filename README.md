@@ -17,3 +17,16 @@ First, we will convert the .bmp file(of definite pixels) to a .hex file as Veril
 
 
 Github link to the project: https://github.com/skhan-org/CS203_Project2021
+
+**Intermediate Submission:
+
+* Added input module
+* Added greyscale and Sepia
+* Added crop module
+* Input and Outputs specified for Blur
+* BMP file converted to Hex
+
+Tasks to be done:
+* Completion of blur module
+* Addition of testbench
+* Output conversion directly to BMP.
