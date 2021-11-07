@@ -1,6 +1,6 @@
-module Sepia #(parameter height=512, width = 768)();
+module Sepia #(parameter height=512, width = 768)(sel);
   integer inp_file [0:width*height*3 -1];
-  integer out_file [0:width*height*3 -1];
+  input [1:0] sel;
   initial 
   begin
       $readmemh("./Images/test.hex", inp_file);
