@@ -1,31 +1,27 @@
-module imageRead(orgR,orgG,orgB);
-	//input integer 500 ;
-	//input integer 333 ;
-	//integer 500,333;  
-	parameter sizeOf500 = 8;   // data 500
-	parameter sizeOfLengthReal = 3*500*333;   // image data : 
-	reg [7 : 0]   totalMemory [0 : sizeOfLengthReal-1];
-	integer tempBMP   [0 : 500*333*3 - 1]; 
-	output integer orgR  [0 : 500*333 - 1];  // temporary storage for R component
-	output integer orgG  [0 : 500*333 - 1]; // temporary storage for G component
-	output integer orgB  [0 : 500*333 - 1];  // temporary storage for B component
-	initial begin
-  $readmemh("./Images/test1.hex",totalMemory,0,sizeOfLengthReal-1); // read file from the .hex file
-	end
-	always@ * begin : test
-		integer i,j;
-    for( i=0; i<500*333*3 ; i=i+1) begin
-        tempBMP[i] = totalMemory[i+0][7:0]; 
-    end 
-    for(i=0; i<333; i=i+1) begin
-      for(j=0; j<500; j=j+1) begin
-		 // Matlab code writes image from the last row to the first row
-		 // Verilog code does the same in reading to correctly save image pixels into 3 separate RGB mem
-        orgR[500*i+j] = tempBMP[500*3*(333-i-1)+3*j+0]; // save Red component
-        orgG[500*i+j] = tempBMP[500*3*(333-i-1)+3*j+1];// save Green component
-        orgB[500*i+j] = tempBMP[500*3*(333-i-1)+3*j+2];// save Blue component
-	    end
+module read #(parameter height=512, width = 768)();
+    integer inp_file [0:width*height*3-1];
+    initial 
+    begin
+        $readmemh("./Images/test.hex", inp_file);
     end
-	end
-	//Sepia testSepia(.orgR(orgR),.orgB(orgB),.orgG(orgG),.500(500),.333(333));
-endmodule // imageRead
+    integer org_R [0:width*height-1];
+        integer org_G [0:width*height-1];
+        integer org_B [0:width*height-1];
+    initial begin :test
+        
+        integer i,j;
+        for(i=0; i<height; i=i+1) begin
+            for(j=0; j<width; j=j+1) begin
+     // Matlab code writes image from the last row to the first row
+     // Verilog code does the same in reading to correctly save image pixels into 3 separate RGB mem
+                org_R[width*i+j] = inp_file[width*3*(height-i-1)+3*j+0]; // save Red component
+                org_G[width*i+j] = inp_file[width*3*(height-i-1)+3*j+1];// save Green component
+                org_B[width*i+j] = inp_file[width*3*(height-i-1)+3*j+2];// save Blue component
+
+            end
+        end
+    end
+    initial begin
+        $writememh("./Images/output.hex", inp_file);
+    end
+endmodule
