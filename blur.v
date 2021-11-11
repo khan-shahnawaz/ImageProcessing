@@ -20,6 +20,15 @@ module Blur #(parameter height=256, width = 256)(sel);
         end
     end
     initial begin
-        $writememh("./Images/output.hex", inp_file);
+        $fopen("./Images/output.hex","w");
+        integer i,j;
+        for(i=0; i<height; i=i+1) begin
+            for(j=0; j<width; j=j+1) begin
+                 $fwrite(f,"%x\n",inp_file[i]);
+            end
+        end
     end
 endmodule
+initial begin
+  $fclose(f);  
+end

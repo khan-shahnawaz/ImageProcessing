@@ -1,13 +1,13 @@
-module Gray #(parameter height=256, width = 256)();
+module Gray #(parameter height=512, width = 768)();
     integer inp_file [0:width*height*3-1];
+    integer i,j,k;
+    integer f;
     initial 
     begin
-        $readmemh("./Images/test1.hex", inp_file);
+        $readmemh("./data/temp.hex", inp_file);
     end
     integer tempred,tempblue,tempgreen;
     initial begin :test
-        
-        integer i,j;
         for(i=0; i<height; i=i+1) begin
             for(j=0; j<width; j=j+1) begin
      // Matlab code writes image from the last row to the first row
@@ -22,7 +22,19 @@ module Gray #(parameter height=256, width = 256)();
             end
         end
     end
-    initial begin
-        $writememh("./Images/output.hex", inp_file);
+    initial begin:t
+        k=0;
+        f=$fopen("./data/output.hex","wb");
+        //genvar i,j;
+        for(i=0; i<height; i=i+1) begin
+            for(j=0; j<width; j=j+1) begin
+                 $fwrite(f,"%2x\n",inp_file[k]);
+                 $fwrite(f,"%2x\n",inp_file[k+1]);
+                 $fwrite(f,"%2x\n",inp_file[k+2]);
+                 k=k+3;
+            end
+        end
+         $fclose(f);  
+         //$display("%d",k);
     end
 endmodule

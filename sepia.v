@@ -1,12 +1,12 @@
 module Sepia #(parameter height=512, width = 768)(sel);
   integer inp_file [0:width*height*3 -1];
   input [1:0] sel;
+  integer i,j,RealR,RealB,RealG,k,f;
   initial 
   begin
-      $readmemh("./Images/test.hex", inp_file);
+      $readmemh("./Images/test1.hex", inp_file);
   end
   initial begin :test    
-    integer i,j,RealR,RealB,RealG;
     for(i=0; i<height; i=i+1) begin
       for(j=0; j<width; j=j+1) begin
         RealR =inp_file[width*3*(height-i-1)+3*j+0]; // save Red component
@@ -18,7 +18,19 @@ module Sepia #(parameter height=512, width = 768)(sel);
       end
     end
   end
-  initial begin
-    $writememh("./Images/output.hex", inp_file);
-  end
+  initial begin:t
+        k=0;
+        f=$fopen("./Images/output.hex","wb");
+        //genvar i,j;
+        for(i=0; i<height; i=i+1) begin
+            for(j=0; j<width; j=j+1) begin
+                 $fwrite(f,"%2x\n",inp_file[k]);
+                 $fwrite(f,"%2x\n",inp_file[k+1]);
+                 $fwrite(f,"%2x\n",inp_file[k+2]);
+                 k=k+3;
+            end
+        end
+         $fclose(f);  
+         $display("%d",k);
+    end
 endmodule
