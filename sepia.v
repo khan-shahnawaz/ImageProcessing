@@ -4,7 +4,7 @@ module Sepia #(parameter height=512, width = 768)(sel);
   integer i,j,RealR,RealB,RealG,k,f;
   initial 
   begin
-      $readmemh("./Images/test1.hex", inp_file);
+      $readmemh("./data/temp.hex", inp_file);
   end
   initial begin :test    
     for(i=0; i<height; i=i+1) begin
@@ -20,7 +20,7 @@ module Sepia #(parameter height=512, width = 768)(sel);
   end
   initial begin:t
         k=0;
-        f=$fopen("./Images/output.hex","wb");
+        f=$fopen("./data/output.hex","wb");
         //genvar i,j;
         for(i=0; i<height; i=i+1) begin
             for(j=0; j<width; j=j+1) begin
@@ -31,6 +31,6 @@ module Sepia #(parameter height=512, width = 768)(sel);
             end
         end
          $fclose(f);  
-         $display("%d",k);
+         //$display("%d",k);
     end
 endmodule

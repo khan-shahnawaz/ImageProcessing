@@ -1,3 +1,4 @@
+from PIL.Image import EXTENSION
 from python import conversions
 import tkinter as tk
 from tkinter import filedialog
@@ -30,8 +31,17 @@ def processMenu(width,height):
             os.system(command)
             root = tk.Tk()
             root.withdraw()
-            files = filedialog.askopenfilenames()
-            conversions.hextoimg(768,512,files[0])
+            file = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes= [('JPG','.jpg'), ('BMP', '.bmp')])
+            conversions.hextoimg(768,512,file)
+        if choice==2:
+            command="iverilog sepia.v"
+            os.system(command)
+            command="vvp a.out"
+            os.system(command)
+            root = tk.Tk()
+            root.withdraw()
+            file = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes= [('JPG','.jpg'), ('BMP', '.bmp')])
+            conversions.hextoimg(768,512,file)
         if choice==3:
             break
 while (1):
