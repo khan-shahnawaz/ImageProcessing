@@ -40,8 +40,8 @@ def processMenu(width,height):
                 conversions.hextoimg(width,height,file)
             except:
                 print("Please select valid location and file name")
-                processMenu(width,height)
-        if choice==2:
+                continue
+        elif choice==2:
             try:
                 print("Processing Image!")
                 command="iverilog sepia.v"
@@ -56,8 +56,8 @@ def processMenu(width,height):
                 conversions.hextoimg(width,height,file)
             except:
                 print("Please select valid location and file name")
-                processMenu(width,height)
-        if choice ==3:
+                continue
+        elif choice ==3:
             try:
                 print("Enter a value between -255 to 255(-ve value will decrease brightness)")
                 brighness=int(input())
@@ -81,8 +81,8 @@ def processMenu(width,height):
                 conversions.hextoimg(width,height,file)
             except:
                 print("Please select valid location and file name")
-                processMenu(width,height)
-        if choice==4:
+                continue
+        else :
             break
         print("Image Saved!")
 while (1):
