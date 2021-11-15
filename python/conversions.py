@@ -24,4 +24,8 @@ def imgtohex(location):
             f.write('\n')
             f.write(hex(pixel_values[i*width+j][2])[2:])
             f.write('\n')
+    f.close()
+    f=open("./data/size.hex","w")
+    f.write(hex(width)[2:]+"\n"+hex(height)[2:])
+    f.close()
     return((width,height))

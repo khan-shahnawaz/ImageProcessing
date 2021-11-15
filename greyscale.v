@@ -1,20 +1,21 @@
-module Gray #(parameter height=512, width = 768)();
-    integer inp_file [0:width*height*3-1];
+module Gray ();
     integer i,j,k;
-    integer f;
-    initial 
-    begin
-        $readmemh("./data/temp.hex", inp_file);
+    integer size[0:1];
+    integer f,tempred,tempblue,tempgreen,height,width;
+    integer inp_file[0:9000000];
+    initial begin
+        $readmemh("./data/size.hex", size);
+        height = size[0];
+        width = size[1];
     end
-    integer tempred,tempblue,tempgreen;
-    initial begin :test
+    initial 
+    begin        
+        $readmemh("./data/temp.hex", inp_file);
         for(i=0; i<height; i=i+1) begin
             for(j=0; j<width; j=j+1) begin
-     // Matlab code writes image from the last row to the first row
-     // Verilog code does the same in reading to correctly save image pixels into 3 separate RGB mem
-                tempred = inp_file[width*3*(height-i-1)+3*j+0]; // save Red component
-                tempgreen = inp_file[width*3*(height-i-1)+3*j+1];// save Green component
-                tempblue = inp_file[width*3*(height-i-1)+3*j+2];// save Blue component
+                tempred = inp_file[width*3*(height-i-1)+3*j+0]; 
+                tempgreen = inp_file[width*3*(height-i-1)+3*j+1];
+                tempblue = inp_file[width*3*(height-i-1)+3*j+2];
                 inp_file[width*3*(height-i-1)+3*j+0]=(tempred+tempgreen+tempblue)/3;
                 inp_file[width*3*(height-i-1)+3*j+1]=(tempred+tempgreen+tempblue)/3;
                 inp_file[width*3*(height-i-1)+3*j+2]=(tempred+tempgreen+tempblue)/3;
