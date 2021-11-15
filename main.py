@@ -28,7 +28,7 @@ def processMenu(width,height):
         if (choice==1):
             try:
                 print("Processing Image!")
-                command="iverilog greyscale.v"
+                command="iverilog ./verilog/greyscale.v"
                 os.system(command)
                 print("Please wait! It may take longer time depending on the quality of the image")
                 command="vvp a.out"
@@ -44,7 +44,7 @@ def processMenu(width,height):
         elif choice==2:
             try:
                 print("Processing Image!")
-                command="iverilog sepia.v"
+                command="iverilog ./verilog/sepia.v"
                 os.system(command)
                 print("Please wait! It may take longer time depending on the quality of the image")
                 command="vvp a.out"
@@ -69,7 +69,7 @@ def processMenu(width,height):
                 f.write(hex(width)[2:]+"\n"+hex(height)[2:]+"\n"+hex(brighness)[2:]+"\n"+str(sign))
                 f.close()
                 print("Processing Image!")
-                command="iverilog brightness.v"
+                command="iverilog ./verilog/brightness.v"
                 os.system(command)
                 print("Please wait! It may take longer time depending on the quality of the image")
                 command="vvp a.out"
