@@ -24,7 +24,8 @@ def processMenu(width,height):
         print("2. Sepia")
         print("3. Blur")
         print("4. Increase/Decrease Brightness ")
-        print("5. Main Menu")
+        print("5. Crop ")
+        print("6. Main Menu")
         choice = int(input())
         if (choice==1):
             try:
@@ -97,6 +98,29 @@ def processMenu(width,height):
                 file = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes= [('JPG','.jpg'), ('BMP', '.bmp')])
                 conversions.hextoimg(width,height,file)
             except:
+                print("Please select valid location and file name")
+                continue
+        elif choice ==5:
+                print("Enter 4 numbers seperated by space 'top bottom right left' ");
+                top,bottom,right,left = list(map(int,input().split()));
+                f=open("./data/size.hex","w")
+                top = int(top/100*height);
+                bottom = int(bottom/100*height);
+                left= int(left/100*width);
+                right = int(right/100*width);
+                f.write(hex(width)[2:]+"\n"+hex(height)[2:]+ "\n"+ hex(top)[2:]+"\n"+hex(bottom)[2:]+"\n"+hex(left)[2:]+"\n" + hex(right)[2:]+"\n");
+                f.close()
+                print("Processing Image!")
+                command="iverilog ./verilog/crop.v"
+                os.system(command)
+                print("Please wait! It may take longer time depending on the quality of the image")
+                command="vvp a.out"
+                os.system(command)
+                print("Processing complete! Please select a location to save from the popup menu")
+                root = tk.Tk()
+                root.withdraw()
+                file = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes= [('JPG','.jpg'), ('BMP', '.bmp')])
+                conversions.hextoimg(width-(left+right),height-(top+bottom),file)
                 print("Please select valid location and file name")
                 continue
         else :
