@@ -26,7 +26,7 @@ def processMenu(width,height):
         print("4. Increase/Decrease Brightness ")
         print("5. Crop ")
         print("6. Main Menu")
-        choice = int(input())
+        choice = int(input("Your choice: "))
         if (choice==1):
             try:
                 print("Processing Image!")
@@ -139,7 +139,7 @@ while (1):
     print("1. Load Image")
     print("2. Help")
     print("3. Quit")
-    choice=int(input())
+    choice=int(input("Your choice: "))
     if choice==3:
         break
     if choice==1:

@@ -45,9 +45,9 @@ module Blur ();
               //  if (j==767 && i==511) $display("%x %x %d %x",sumr,tempred[393215],k,inp_file[k]);
                 inp_file[k+1]=sumg/cnt; 
                 inp_file[k+2]=sumb/cnt;
+       // $display("%x",inp_file[9]);
             end
         end
-       // $display("%x",inp_file[9]);
     end
     initial begin:t
         k=0;
