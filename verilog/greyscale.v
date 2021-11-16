@@ -29,9 +29,9 @@ module Gray ();
         //genvar i,j;
         for(i=0; i<height; i=i+1) begin
             for(j=0; j<width; j=j+1) begin
-                 $fwrite(f,"%2x\n",inp_file[k]);
-                 $fwrite(f,"%2x\n",inp_file[k+1]);
-                 $fwrite(f,"%2x\n",inp_file[k+2]);
+                 $fwriteh(f,"%2x\n",inp_file[k]);
+                 $fwriteh(f,"%2x\n",inp_file[k+1]);
+                 $fwriteh(f,"%2x\n",inp_file[k+2]);
                  k=k+3;
             end
         end
