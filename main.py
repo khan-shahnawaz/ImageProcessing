@@ -22,8 +22,9 @@ def processMenu(width,height):
         print("Select a filter")
         print("1. Grayscale")
         print("2. Sepia")
-        print("3. Increase/Decrease Brightness ")
-        print("4. Main Menu")
+        print("3. Blur")
+        print("4. Increase/Decrease Brightness ")
+        print("5. Main Menu")
         choice = int(input())
         if (choice==1):
             try:
@@ -57,7 +58,23 @@ def processMenu(width,height):
             except:
                 print("Please select valid location and file name")
                 continue
-        elif choice ==3:
+        elif choice==3:
+            try:
+                print("Processing Image!")
+                command="iverilog ./verilog/blur.v"
+                os.system(command)
+                print("Please wait! It may take longer time depending on the quality of the image")
+                command="vvp a.out"
+                os.system(command)
+                print("Processing complete! Please select a location to save from the popup menu")
+                root = tk.Tk()
+                root.withdraw()
+                file = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes= [('JPG','.jpg'), ('BMP', '.bmp')])
+                conversions.hextoimg(width,height,file)
+            except:
+                print("Please select valid location and file name")
+                continue
+        elif choice ==4:
             try:
                 print("Enter a value between -255 to 255(-ve value will decrease brightness)")
                 brighness=int(input())

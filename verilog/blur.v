@@ -1,13 +1,16 @@
-module Blur #(parameter height=256, width = 256)(sel);
-    integer inp_file [0:width*height*3-1];
-    input [1:0] sel;
-    integer sumr,sumg,sumb,k,cnt,f,i,j;
-    initial 
-    begin
-        $readmemh("./Images/test1.hex", inp_file);
+module Blur ();
+    integer i,j,k;
+    integer size[0:1];
+    integer f,height,width,sumr,sumg,sumb,cnt;
+    integer inp_file[0:9000000];
+    initial begin
+        $readmemh("./data/size.hex", size);
+        height = size[0];
+        width = size[1];
     end
-    integer tempred[0:width*height -1],tempblue[0: width*height -1],tempgreen[0:width*height -1];
-    initial begin :test
+    integer tempred[0:9000000],tempblue[0: 9000000],tempgreen[0:9000000];
+    initial begin
+        $readmemh("./data/temp.hex", inp_file);
         for(i=0; i<height; i=i+1) begin
             for(j=0; j<width; j=j+1) begin
                 tempred[width*i +j] = inp_file[width*3*(height-i-1)+3*j+0]; // save Red component

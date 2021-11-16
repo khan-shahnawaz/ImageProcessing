@@ -36,6 +36,5 @@ module Gray ();
             end
         end
          $fclose(f);  
-         //$display("%d",k);
     end
 endmodule
