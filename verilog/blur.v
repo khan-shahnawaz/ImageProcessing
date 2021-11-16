@@ -5,8 +5,8 @@ module Blur ();
     integer inp_file[0:9000000];
     initial begin
         $readmemh("./data/size.hex", size);
-        height = size[0];
-        width = size[1];
+        height = size[1];
+        width = size[0];
     end
     integer tempred[0:9000000],tempblue[0: 9000000],tempgreen[0:9000000];
     initial begin
@@ -24,24 +24,24 @@ module Blur ();
                 sumg=tempgreen[width*(i)+j];
                 sumb=tempblue[width*(i)+j]; 
                 cnt=1;
-                // if(i>0 && j>0) begin
-                //     cnt=cnt+1;
-                //     sumr+= tempred[width*(i-1)+j-1];
-                //     sumg+= tempgreen[width*(i-1)+j-1];
-                //     sumb+= tempblue[width*(i-1)+j-1];
-                // end
+                if(i>0 && j>0) begin
+                    cnt=cnt+1;
+                    sumr+= tempred[width*(i-1)+j-1];
+                    sumg+= tempgreen[width*(i-1)+j-1];
+                    sumb+= tempblue[width*(i-1)+j-1];
+                end
                 if(i>0) begin
                     cnt=cnt+1;
                     sumr+= tempred[width*(i-1)+j];
                     sumg+= tempgreen[width*(i-1)+j];
                     sumb+= tempblue[width*(i-1)+j];
                 end
-                // if(i>0 && j<width-1) begin
-                //     cnt=cnt+1;
-                //     sumr+= tempred[width*(i-1)+j+1];
-                //     sumg+= tempgreen[width*(i-1)+j+1];
-                //     sumb+= tempblue[width*(i-1)+j+1];
-                // end
+                if(i>0 && j<width-1) begin
+                    cnt=cnt+1;
+                    sumr+= tempred[width*(i-1)+j+1];
+                    sumg+= tempgreen[width*(i-1)+j+1];
+                    sumb+= tempblue[width*(i-1)+j+1];
+                end
                 if(j>0) begin
                     cnt=cnt+1;
                     sumr+= tempred[width*(i)+j-1];
@@ -54,32 +54,27 @@ module Blur ();
                     sumg+= tempgreen[width*(i)+j+1];
                     sumb+= tempblue[width*(i)+j+1];
                 end
-                // if(i<height-1 && j>0) begin
-                //     cnt=cnt+1;
-                //     sumr+= tempred[width*(i+1)+j-1];
-                //     sumg+= tempgreen[width*(i+1)+j-1];
-                //     sumb+= tempblue[width*(i+1)+j-1];
-                // end
-                // if(i<height-1) begin
-                //     cnt=cnt+1;
-                //     sumr+= tempred[width*(i+1)+j];
-                //     sumg+= tempgreen[width*(i+1)+j];
-                //     sumb+= tempblue[width*(i+1)+j];
-                // end
-                // if(i<height-1 && j<width-1) begin
-                //     cnt=cnt+1;
-                //     sumr+= tempred[width*(i+1)+j+1];
-                //     sumg+= tempgreen[width*(i+1)+j+1];
-                //     sumb+= tempblue[width*(i+1)+j+1];
-                // end
-                // inp_file[width*3*(height-i-1)+3*j+0] = sumr/cnt;
-                // inp_file[width*3*(height-i-1)+3*j+1] = sumg/cnt;
-                // inp_file[width*3*(height-i-1)+3*j+2] = sumb/cnt;   
-                if(i>=200 && i<=300 && j>=300 && j<=400) begin
-                    inp_file[width*3*(height-i-1)+3*j+0] = 0;
-                    inp_file[width*3*(height-i-1)+3*j+1] = 0;
-                    inp_file[width*3*(height-i-1)+3*j+2] = 0;
+                if(i<height-1 && j>0) begin
+                    cnt=cnt+1;
+                    sumr+= tempred[width*(i+1)+j-1];
+                    sumg+= tempgreen[width*(i+1)+j-1];
+                    sumb+= tempblue[width*(i+1)+j-1];
                 end
+                if(i<height-1) begin
+                    cnt=cnt+1;
+                    sumr+= tempred[width*(i+1)+j];
+                    sumg+= tempgreen[width*(i+1)+j];
+                    sumb+= tempblue[width*(i+1)+j];
+                end
+                if(i<height-1 && j<width-1) begin
+                    cnt=cnt+1;
+                    sumr+= tempred[width*(i+1)+j+1];
+                    sumg+= tempgreen[width*(i+1)+j+1];
+                    sumb+= tempblue[width*(i+1)+j+1];
+                end
+                inp_file[width*3*(height-i-1)+3*j+0] = sumr/cnt;
+                inp_file[width*3*(height-i-1)+3*j+1] = sumg/cnt;
+                inp_file[width*3*(height-i-1)+3*j+2] = sumb/cnt;   
             end
         end
     end

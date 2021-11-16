@@ -26,7 +26,7 @@ def processMenu(width,height):
         print("4. Increase/Decrease Brightness ")
         print("5. Crop ")
         print("6. Main Menu")
-        choice = int(input())
+        choice = int(input("Your choice: "))
         if (choice==1):
             try:
                 print("Processing Image!")
@@ -101,6 +101,7 @@ def processMenu(width,height):
                 print("Please select valid location and file name")
                 continue
         elif choice ==5:
+            try:
                 print("Enter 4 numbers seperated by space 'top bottom right left' ");
                 top,bottom,right,left = list(map(int,input().split()));
                 f=open("./data/size.hex","w")
@@ -121,6 +122,7 @@ def processMenu(width,height):
                 root.withdraw()
                 file = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes= [('JPG','.jpg'), ('BMP', '.bmp')])
                 conversions.hextoimg(width-(left+right),height-(top+bottom),file)
+            except:
                 print("Please select valid location and file name")
                 continue
         else :
@@ -131,7 +133,7 @@ while (1):
     print("1. Load Image")
     print("2. Help")
     print("3. Quit")
-    choice=int(input())
+    choice=int(input("Your choice: "))
     if choice==3:
         break
     if choice==1:

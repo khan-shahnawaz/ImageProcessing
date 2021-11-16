@@ -4,8 +4,8 @@ module Crop();
     integer inp_file[0:9000000];
     initial begin
         $readmemh("./data/size.hex", size);
-        height = size[0];
-        width = size[1];
+        height = size[1];
+        width = size[0];
         top = size[2];
         bottom = size[3];
         left = size[4];
@@ -21,7 +21,7 @@ module Crop();
         //genvar i,j;
         for(i=0; i<height; i=i+1) begin
             for(j=0; j<width; j=j+1) begin
-              if(i>=bottom && i<=height- top && j<=height - right && j>=left) begin
+              if(i>=top && i<=height- bottom && j<width - right && j>=left) begin
                  $fwrite(f,"%2x\n",inp_file[k]);
                  $fwrite(f,"%2x\n",inp_file[k+1]);
                  $fwrite(f,"%2x\n",inp_file[k+2]);
