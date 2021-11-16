@@ -1,12 +1,14 @@
 module Blur ();
     integer i,j,k=0;
-    integer size[0:1];
-    integer f,height,width,sumr,sumg,sumb,cnt;
+    integer size[0:2];
+    integer f,height,width,sumr,sumg,sumb,cnt,ti,tj;
     integer inp_file[0:9000000];
+    integer order;
     initial begin
         $readmemh("./data/size.hex", size);
-        height = size[0];
-        width = size[1];
+        height = size[1];
+        width = size[0];
+        order=size[2];
     end
     integer tempred[0:3000000],tempblue[0: 3000000],tempgreen[0:3000000];
     initial begin
@@ -21,64 +23,31 @@ module Blur ();
             end
         end
         k=0;
-        for(i=0;i<height;i=i+1) begin
-            for(j=0;j<width; j=j+1) begin
-                sumr=tempred[width*(i)+j];sumg=tempgreen[width*(i)+j];sumb= tempblue[width*(i)+j]; cnt=1;
-                // if(i>0 && j>0) begin
-                //     cnt=cnt+1;
-                //     sumr+= tempred[width*(i-1)+j-1];
-                //     sumg+= tempgreen[width*(i-1)+j-1];
-                //     sumb+= tempblue[width*(i-1)+j-1];
-                // end
-                // if(i>0) begin
-                //      cnt=cnt+1;
-                //      sumr+= tempred[width*(i-1)+j];
-                //      sumg+= tempgreen[width*(i-1)+j];
-                //      sumb+= tempblue[width*(i-1)+j];
-                // end
-                // // if(i>0 && j<width-1) begin
-                // //     cnt=cnt+1;
-                // //     sumr+= tempred[width*(i-1)+j+1];
-                // //     sumg+= tempgreen[width*(i-1)+j+1];
-                // //     sumb+= tempblue[width*(i-1)+j+1];
-                // // end
-                // if(j>0) begin
-                //     cnt=cnt+1;
-                //     sumr+= tempred[width*(i)+j-1];
-                //     sumg+= tempgreen[width*(i)+j-1];
-                //     sumb+= tempblue[width*(i)+j-1];
-                // end
-                //  if(j<width -1) begin
-                //      cnt=cnt+1;
-                //      sumr+= tempred[width*(i)+j+1];
-                //      sumg+= tempgreen[width*(i)+j+1];
-                //      sumb+= tempblue[width*(i)+j+1];
-                // end
-                // if(i<height-1 && j>0) begin
-                //     cnt=cnt+1;
-                //     sumr+= tempred[width*(i+1)+j-1];
-                //     sumg+= tempgreen[width*(i+1)+j-1];
-                //     sumb+= tempblue[width*(i+1)+j-1];
-                // end
-                if(i<height-1) begin
-                    cnt=cnt+1;
-                    sumr+= tempred[width*(i)+j+width];
-                    sumg+= tempgreen[width*(i)+j+width];
-                    sumb+= tempblue[width*(i)+j+width];
+        cnt=0;
+        //$display("%x",tempred[3]);
+        for(i=order/2;i<height-order/2;i=i+1) begin
+            for(j=order/2;j<width-order/2; j=j+1) begin
+                sumr=0;
+                sumb=0;
+                sumg=0;
+                cnt=0;
+                k=i*width*3+3*j;
+                for (ti=i-order/2;ti<=i+order/2;ti=ti+1) begin
+                  for (tj=j-order/2;tj<=j+order/2;tj=tj+1) begin
+                    sumr+=tempred[width*ti +tj];
+                    sumg+=tempgreen[width*ti +tj];
+                    sumb+=tempblue[width*ti +tj];
+                    cnt+=1;
+                //    if (tj==767 && ti==511) $display("%x %x %d",sumr,tempred[393215],k);
+                  end
                 end
-                // if(i<height-1 && j<width-1) begin
-                //     cnt=cnt+1;
-                //     sumr+= tempred[width*(i+1)+j+1];
-                //     sumg+= tempgreen[width*(i+1)+j+1];
-                //     sumb+= tempblue[width*(i+1)+j+1];
-                // end
-                inp_file[k+0] = sumr/cnt;
-                inp_file[k+1] = sumg/cnt;
-                inp_file[k+2] = sumb/cnt;  
-                k=k+3;
+                inp_file[k]=sumr/cnt; 
+              //  if (j==767 && i==511) $display("%x %x %d %x",sumr,tempred[393215],k,inp_file[k]);
+                inp_file[k+1]=sumg/cnt; 
+                inp_file[k+2]=sumb/cnt;
             end
         end
-        $display("%x %x",tempred[0],tempred[width]);
+       // $display("%x",inp_file[9]);
     end
     initial begin:t
         k=0;
