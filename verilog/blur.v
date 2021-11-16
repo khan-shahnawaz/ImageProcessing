@@ -1,5 +1,5 @@
 module Blur ();
-    integer i,j,k;
+    integer i,j,k=0;
     integer size[0:1];
     integer f,height,width,sumr,sumg,sumb,cnt;
     integer inp_file[0:9000000];
