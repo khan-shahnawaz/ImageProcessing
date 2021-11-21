@@ -60,7 +60,13 @@ def processMenu(width,height):
                 print("Please select valid location and file name")
                 continue
         elif choice==3:
-            try:
+            
+                print("Select Blur Level:")
+                print("1. Low\n2. Medium\n3. High(Works Slow)")
+                order=int(input())
+                f=open("./data/size.hex","w")
+                f.write(hex(width)[2:]+"\n"+hex(height)[2:]+"\n"+hex(2*order+1)[2:])
+                f.close()
                 print("Processing Image!")
                 command="iverilog ./verilog/blur.v"
                 os.system(command)
@@ -72,7 +78,7 @@ def processMenu(width,height):
                 root.withdraw()
                 file = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes= [('JPG','.jpg'), ('BMP', '.bmp')])
                 conversions.hextoimg(width,height,file)
-            except:
+            
                 print("Please select valid location and file name")
                 continue
         elif choice ==4:
