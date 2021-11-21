@@ -25,11 +25,12 @@ Requirements : Python 3.7 or above, ktinker and pillow library, verilog.
 Ktinker and Pillow should either be pre-installed or should be installed through pip command.
 The command prompt should be able to compile and run verilog files by the command (iverilog file.v, then vvp a.out).
 
-* How to run *
-1). Clone the project into a seperate folder.
-2). cd into the project directory which contains main.py.
-3). Run main.py through python 3. (python3 main.py or python main.py)
-4). Follow the on screen instructions for processing the image.
+How to run
+
+* Clone the project into a seperate folder.
+* cd into the project directory which contains main.py.
+* Run main.py through python 3. (python3 main.py or python main.py)
+* Follow the on screen instructions for processing the image.
 
 Note :- Blur with option High can be too slow on some systems.
 **Intermediate Submission:
