@@ -5,7 +5,11 @@ from tkinter import filedialog
 import os
 dir=os.getcwd()
 def help():
-    pass
+    print("\nFirst load the image by choosing an appropriate .bmp or .jpg file.")
+    print("Then select of following filters:\nGrayscale:It adds a gray shade to the image")
+    print("Sepia:It adds a red filter to the image\n Blur: It blurs the image.This further has 3 options")
+    print("Increase/Decrease Brightness: This will increase the brightness of the image\nCrop: It will crop the image(provide values in percentage)")
+    print("Main Menu: This will take you back to the main menu. You can load another image or quit.\n")    
 def load():
     print("Choose an image File from the popup menu")
     root = tk.Tk()
@@ -26,7 +30,7 @@ def processMenu(width,height):
         print("4. Increase/Decrease Brightness ")
         print("5. Crop ")
         print("6. Main Menu")
-        choice = int(input("Your choice: "))
+        choice = int(input())
         if (choice==1):
             try:
                 print("Processing Image!")
@@ -107,7 +111,6 @@ def processMenu(width,height):
                 print("Please select valid location and file name")
                 continue
         elif choice ==5:
-            try:
                 print("Enter 4 numbers seperated by space 'top bottom right left' ");
                 top,bottom,right,left = list(map(int,input().split()));
                 f=open("./data/size.hex","w")
@@ -128,7 +131,6 @@ def processMenu(width,height):
                 root.withdraw()
                 file = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes= [('JPG','.jpg'), ('BMP', '.bmp')])
                 conversions.hextoimg(width-(left+right),height-(top+bottom),file)
-            except:
                 print("Please select valid location and file name")
                 continue
         else :
@@ -139,7 +141,7 @@ while (1):
     print("1. Load Image")
     print("2. Help")
     print("3. Quit")
-    choice=int(input("Your choice: "))
+    choice=int(input())
     if choice==3:
         break
     if choice==1:
