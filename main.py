@@ -5,7 +5,11 @@ from tkinter import filedialog
 import os
 dir=os.getcwd()
 def help():
-    pass
+    print("\nFirst load the image by choosing an appropriate .bmp or .jpg file.")
+    print("Then select of following filters:\nGrayscale:It adds a gray shade to the image")
+    print("Sepia:It adds a red filter to the image\n Blur: It blurs the image.This further has 3 options")
+    print("Increase/Decrease Brightness: This will increase the brightness of the image\nCrop: It will crop the image(provide values in percentage)")
+    print("Main Menu: This will take you back to the main menu. You can load another image or quit.\n")    
 def load():
     print("Choose an image File from the popup menu")
     root = tk.Tk()
