@@ -53,4 +53,5 @@ Tasks to be done:
 * Fixed some bugs.
 
 Note :- These files will work only for images with less than or equal to 3000000 pixels. Some modification needs to be done in the code for making it available for images with large pixels.
+
 Check the images section for sample output.
