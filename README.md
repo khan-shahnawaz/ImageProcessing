@@ -52,4 +52,5 @@ Tasks to be done:
 * Images are now automatically converted to hex and processed hex is now automatically saved back to image using python Pillow and tkinker module.
 * Fixed some bugs.
 
-Note :- Check the images section for sample output.
+Note :- These files will work only for images with less than or equal to 3000000 pixels. Some modification needs to be done in the code for making it available for images with large pixels.
+Check the images section for sample output.
